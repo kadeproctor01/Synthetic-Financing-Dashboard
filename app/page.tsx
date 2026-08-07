@@ -112,7 +112,7 @@ export default function Home() {
               <input
                 type="number"
                 min="1"
-                max="10000000"
+                max="100000000"
                 step="1"
                 value={requestedNetProceedsUsd}
                 onChange={(event) => setRequestedNetProceedsUsd(Number(event.target.value))}
@@ -136,7 +136,7 @@ export default function Home() {
               <input
                 type="number"
                 min="1"
-                max="10000000"
+                max="100000000"
                 step="1"
                 value={eligibleCollateralValueUsd}
                 onChange={(event) => setEligibleCollateralValueUsd(Number(event.target.value))}
