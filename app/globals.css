@@ -186,7 +186,7 @@ button:disabled {
   grid-template-columns: minmax(240px, 0.75fr) minmax(0, 1.25fr);
   gap: 28px;
   padding: 26px;
-  margin-bottom: 26px;
+  margin-bottom: 18px;
   background: linear-gradient(135deg, #ffffff, #f7f9fc);
   border: 1px solid var(--line);
   border-left: 5px solid var(--gold);
@@ -214,6 +214,28 @@ button:disabled {
   margin-top: 5px;
   color: var(--navy);
   font-size: 18px;
+}
+
+.warningNote {
+  margin: 0 0 24px;
+  border: 1px solid rgba(154, 106, 18, 0.25);
+  border-left: 5px solid var(--gold);
+  background: var(--gold-soft);
+  color: var(--ink);
+  padding: 14px 16px;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.warningNote strong {
+  display: block;
+  color: var(--navy);
+  margin-bottom: 6px;
+}
+
+.warningNote ul {
+  margin: 0;
+  padding-left: 18px;
 }
 
 .tableWrap {
