@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { defaultModelConfiguration } from "@/src/domain/config";
-import { calculateBoxStructures } from "@/src/domain/engine";
-import { MockMarketDataProvider } from "@/src/domain/mockMarketData";
-import { validateRequest } from "@/src/domain/validation";
+import { defaultModelConfiguration } from "../../../src/domain/config";
+import { calculateBoxStructures } from "../../../src/domain/engine";
+import { MockMarketDataProvider } from "../../../src/domain/mockMarketData";
+import { validateRequest } from "../../../src/domain/validation";
 
 export async function POST(request: Request) {
   const payload = await request.json().catch(() => null);
