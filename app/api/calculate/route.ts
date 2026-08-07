@@ -1,12 +1,13 @@
 import { NextResponse } from "next/server";
-import { defaultModelConfiguration } from "@/domain/config";
-import { calculateBoxStructures } from "@/domain/engine";
-import { MockMarketDataProvider } from "@/domain/mockMarketData";
-import { validateRequest } from "@/domain/validation";
+import { defaultModelConfiguration } from "@/src/domain/config";
+import { calculateBoxStructures } from "@/src/domain/engine";
+import { MockMarketDataProvider } from "@/src/domain/mockMarketData";
+import { validateRequest } from "@/src/domain/validation";
 
 export async function POST(request: Request) {
   const payload = await request.json().catch(() => null);
   const validation = validateRequest(payload);
+
   if (!validation.value) {
     return NextResponse.json(
       {
@@ -23,6 +24,11 @@ export async function POST(request: Request) {
     );
   }
 
-  const result = await calculateBoxStructures(validation.value, defaultModelConfiguration, new MockMarketDataProvider());
+  const result = await calculateBoxStructures(
+    validation.value,
+    defaultModelConfiguration,
+    new MockMarketDataProvider()
+  );
+
   return NextResponse.json(result);
 }
