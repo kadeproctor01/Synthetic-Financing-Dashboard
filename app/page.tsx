@@ -11,6 +11,12 @@ type BoxCandidate = {
   lowerStrike: number;
   upperStrike: number;
   quoteStatus: QuoteStatus;
+  validationIssues: {
+    status: QuoteStatus;
+    code: string;
+    message: string;
+    fieldId?: string;
+  }[];
   legs: {
     action: "BUY" | "SELL";
     right: "CALL" | "PUT";
@@ -83,6 +89,10 @@ export default function Home() {
         .slice(0, 8),
     [result]
   );
+
+  const selectedWarnings = selected
+    ? Array.from(new Set(selected.validationIssues.map((issue) => issue.message)))
+    : [];
 
   return (
     <main className="shell">
@@ -169,26 +179,39 @@ export default function Home() {
               </div>
 
               {selected ? (
-                <section className="selected">
-                  <div>
-                    <p className="eyebrow">Selected Candidate</p>
-                    <h2>
-                      {selected.underlying} {selected.lowerStrike} / {selected.upperStrike}
-                    </h2>
-                    <p className="subtle">
-                      Expires {selected.expirationDate} with {selected.financing.contractCount} box contracts.
-                    </p>
-                  </div>
+                <>
+                  <section className="selected">
+                    <div>
+                      <p className="eyebrow">Selected Candidate</p>
+                      <h2>
+                        {selected.underlying} {selected.lowerStrike} / {selected.upperStrike}
+                      </h2>
+                      <p className="subtle">
+                        Expires {selected.expirationDate} with {selected.financing.contractCount} box contracts.
+                      </p>
+                    </div>
 
-                  <div className="metrics">
-                    <Metric label="Net proceeds" value={currency(selected.financing.netCreditReceivedUsd)} />
-                    <Metric label="Maturity obligation" value={currency(selected.financing.maturityObligationUsd)} />
-                    <Metric label="All-in cost" value={currency(selected.financing.allInFinancingCostUsd)} />
-                    <Metric label="Effective annual rate" value={percent(selected.financing.effectiveAnnualRateDecimal)} />
-                    <Metric label="Excess proceeds" value={currency(selected.financing.excessProceedsUsd)} />
-                    <Metric label="Stressed LTV" value={percent(selected.collateral.stressedObligationLtvDecimal)} />
-                  </div>
-                </section>
+                    <div className="metrics">
+                      <Metric label="Net proceeds" value={currency(selected.financing.netCreditReceivedUsd)} />
+                      <Metric label="Maturity obligation" value={currency(selected.financing.maturityObligationUsd)} />
+                      <Metric label="All-in cost" value={currency(selected.financing.allInFinancingCostUsd)} />
+                      <Metric label="Effective annual rate" value={percent(selected.financing.effectiveAnnualRateDecimal)} />
+                      <Metric label="Excess proceeds" value={currency(selected.financing.excessProceedsUsd)} />
+                      <Metric label="Stressed LTV" value={percent(selected.collateral.stressedObligationLtvDecimal)} />
+                    </div>
+                  </section>
+
+                  {selected.quoteStatus === "WARNING" && selectedWarnings.length > 0 ? (
+                    <div className="warningNote">
+                      <strong>Why this candidate is marked WARNING</strong>
+                      <ul>
+                        {selectedWarnings.map((message) => (
+                          <li key={message}>{message}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ) : null}
+                </>
               ) : (
                 <div className="banner danger">
                   No valid structure was produced. Review validation issues before proceeding.
