@@ -14,13 +14,13 @@ export function validateRequest(input: unknown): { value?: import("./types").Box
   if (
     !Number.isFinite(value.requestedNetProceedsUsd) ||
     value.requestedNetProceedsUsd <= 0 ||
-    value.requestedNetProceedsUsd > 10000000
+    value.requestedNetProceedsUsd > 100000000
   ) {
     issues.push(
       issue(
         "INVALID",
         "INSUFFICIENT_NET_PROCEEDS",
-        "Requested net proceeds must be greater than zero and no more than $10,000,000.",
+        "Requested net proceeds must be greater than zero and no more than $100,000,000.",
         "requestedNetProceedsUsd"
       )
     );
@@ -33,13 +33,13 @@ export function validateRequest(input: unknown): { value?: import("./types").Box
   if (
     !Number.isFinite(value.eligibleCollateralValueUsd) ||
     value.eligibleCollateralValueUsd <= 0 ||
-    value.eligibleCollateralValueUsd > 10000000
+    value.eligibleCollateralValueUsd > 100000000
   ) {
     issues.push(
       issue(
         "INVALID",
         "INSUFFICIENT_NET_PROCEEDS",
-        "Eligible collateral value must be greater than zero and no more than $10,000,000.",
+        "Eligible collateral value must be greater than zero and no more than $100,000,000.",
         "eligibleCollateralValueUsd"
       )
     );
