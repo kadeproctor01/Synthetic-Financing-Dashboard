@@ -42,8 +42,8 @@ type CalculationResult = {
 const defaultTradeDate = "2026-08-07";
 
 export default function Home() {
-  const [requestedNetProceedsUsd, setRequestedNetProceedsUsd] = useState(200000);
-  const [desiredTenorMonths, setDesiredTenorMonths] = useState(6);
+  const [requestedNetProceedsUsd, setRequestedNetProceedsUsd] = useState(500000);
+  const [desiredTenorMonths, setDesiredTenorMonths] = useState(12);
   const [eligibleCollateralValueUsd, setEligibleCollateralValueUsd] = useState(2000000);
   const [tradeDate, setTradeDate] = useState(defaultTradeDate);
   const [result, setResult] = useState<CalculationResult | null>(null);
@@ -102,7 +102,8 @@ export default function Home() {
               <input
                 type="number"
                 min="1"
-                step="1000"
+                max="10000000"
+                step="1"
                 value={requestedNetProceedsUsd}
                 onChange={(event) => setRequestedNetProceedsUsd(Number(event.target.value))}
               />
@@ -125,7 +126,8 @@ export default function Home() {
               <input
                 type="number"
                 min="1"
-                step="1000"
+                max="10000000"
+                step="1"
                 value={eligibleCollateralValueUsd}
                 onChange={(event) => setEligibleCollateralValueUsd(Number(event.target.value))}
               />
